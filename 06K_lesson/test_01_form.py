@@ -1,45 +1,45 @@
-import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 driver = webdriver.Edge()
 driver.get("https://bonigarcia.dev/selenium-webdriver-java/data-types.html")
 
-driver.find_element(By.CSS_SELECTOR, "input[name='first-name']").send_keys("Иван")
-driver.find_element(By.CSS_SELECTOR, "input[name='last-name']").send_keys("Петров")
-driver.find_element(By.CSS_SELECTOR, "input[name='address']").send_keys("Ленина, 55-3")
-driver.find_element(By.CSS_SELECTOR, "input[name='e-mail']").send_keys("test@skypro.com")
-driver.find_element(By.CSS_SELECTOR, "input[name='phone']").send_keys("+7985899998787")
-driver.find_element(By.CSS_SELECTOR, "input[name='zip-code']").send_keys("")
-driver.find_element(By.CSS_SELECTOR, "input[name='city']").send_keys("Москва")
-driver.find_element(By.CSS_SELECTOR, "input[name='country']").send_keys("Россия")
-driver.find_element(By.CSS_SELECTOR, "input[name='job-position']").send_keys("QA")
-driver.find_element(By.CSS_SELECTOR, "input[name='company']").send_keys("SkyPro")
-driver.find_element(By.CSS_SELECTOR, "button[type='submit']").click()
+first_name_field = driver.find_element(By.NAME,'first-name')
+first_name_field.send_keys("Иван")
 
+last_name_field = driver.find_element(By.NAME,'last-name')
+last_name_field.send_keys("Петров")
 
-@pytest.mark.test_form
-@pytest.mark.parametrize('res_in, res_es', [
-        (driver.find_element(By.CSS_SELECTOR, "#first-name").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#last-name").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#address").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#e-mail").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#phone").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#city").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#country").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#job-position").get_attribute("className"), 'alert py-2 alert-success'),
-        (driver.find_element(By.CSS_SELECTOR, "#company").get_attribute("className"), 'alert py-2 alert-success')
-        ])
-def test_success_form(res_in, res_es):
-    assert res_in == res_es
+address_field = driver.find_element(By.NAME,'address')
+address_field.send_keys("Ленина, 55-3")
 
+email_field = driver.find_element(By.NAME,'e-mail')
+email_field.send_keys("test@skypro.com")
 
-@pytest.mark.test_form
-@pytest.mark.parametrize('res_in, res_es', [
-        (driver.find_element(By.CSS_SELECTOR, "#zip-code").get_attribute("className"), 'alert py-2 alert-danger'),
-        ])
-def test_danger_form(res_in, res_es):
-    assert res_in == res_es
+phone_field = driver.find_element(By.NAME,'phone')
+phone_field.send_keys("+7985899998787")
 
+city_field = driver.find_element(By.NAME,'city')
+city_field.send_keys("Москва")
 
-driver.quit()
+country_field = driver.find_element(By.NAME,'country')
+country_field.send_keys("Россия")
+
+job_position_field = driver.find_element(By.NAME,'job-position')
+job_position_field.send_keys("QA")
+
+company_field = driver.find_element(By.NAME,'company')
+company_field.send_keys("SkyPro")
+
+submit_button = driver.find_element(By.CSS_SELECTOR, "button[type='submit']")
+submit_button.click()
+
+    
+pole_z = driver.find_element(By.ID, "zip-code").get_attribute("class")
+assert pole_z == "alert py-2 alert-danger"
+
+   
+poles = ["#first-name", "#last-name", "#address", "#city", "#country", "#e-mail", "#phone", "#company"]
+for pole in poles:
+        pole_class = driver.find_element(By.CSS_SELECTOR, pole).get_attribute("class")
+        assert pole_class == "alert py-2 alert-success"
