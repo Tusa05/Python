@@ -1,2 +1,2 @@
 # Python
-урок по Python
+урок по Python:
